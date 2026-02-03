@@ -3,7 +3,6 @@ package com.musiclibrary.service;
 import com.musiclibrary.interfaces.Playable;
 import com.musiclibrary.interfaces.Rateable;
 import com.musiclibrary.interfaces.Searchable;
-import com.musiclibrary.interfaces.Validatable;
 import com.musiclibrary.model.Media;
 import com.musiclibrary.repository.interfaces.SearchableRepository;
 import com.musiclibrary.utils.SortingUtils;
@@ -11,6 +10,7 @@ import com.musiclibrary.exception.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class MediaService implements Playable, Rateable, Searchable<Media> {
 
@@ -152,7 +152,7 @@ public class MediaService implements Playable, Rateable, Searchable<Media> {
         List<Media> allMedia = repository.findAll();
         return allMedia.stream()
                 .filter(media -> media.getDuration() >= minDurationSeconds)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<Media> getMediaByType(String type) {
@@ -164,7 +164,7 @@ public class MediaService implements Playable, Rateable, Searchable<Media> {
         List<Media> allMedia = repository.findAll();
         return allMedia.stream()
                 .filter(media -> media.getMediaType().equalsIgnoreCase(type))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<String> getAllArtists() {
@@ -177,8 +177,8 @@ public class MediaService implements Playable, Rateable, Searchable<Media> {
         return allMedia.stream()
                 .map(Media::getArtist)
                 .distinct()
-                .sorted((a1, a2) -> a1.compareToIgnoreCase(a2))
-                .toList();
+                .sorted(String.CASE_INSENSITIVE_ORDER)
+                .collect(Collectors.toList());
     }
 
     public Media createMedia(Media media) {
