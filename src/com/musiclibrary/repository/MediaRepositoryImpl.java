@@ -32,13 +32,11 @@ public class MediaRepositoryImpl implements SearchableRepository<Media, Integer>
             conn = dbConnection.getConnection();
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            // Set common parameters
             ps.setString(1, media.getTitle());
             ps.setString(2, media.getArtist());
             ps.setInt(3, media.getDuration());
             ps.setInt(4, media.getReleaseYear());
 
-            // Set type-specific parameters
             if (media instanceof Song) {
                 Song song = (Song) media;
                 ps.setString(5, "Song");
@@ -66,7 +64,6 @@ public class MediaRepositoryImpl implements SearchableRepository<Media, Integer>
                 throw new DatabaseOperationException("Creating media failed, no rows affected.");
             }
 
-            // Get generated ID
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 media.setId(rs.getInt(1));
@@ -98,13 +95,11 @@ public class MediaRepositoryImpl implements SearchableRepository<Media, Integer>
             conn = dbConnection.getConnection();
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            // Set common parameters
             ps.setString(1, media.getTitle());
             ps.setString(2, media.getArtist());
             ps.setInt(3, media.getDuration());
             ps.setInt(4, media.getReleaseYear());
 
-            // Set type-specific parameters
             if (media instanceof Song) {
                 Song song = (Song) media;
                 ps.setString(5, "Song");
@@ -132,7 +127,6 @@ public class MediaRepositoryImpl implements SearchableRepository<Media, Integer>
                 throw new DatabaseOperationException("Creating media failed, no rows affected.");
             }
 
-            // Get generated ID
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 media.setId(rs.getInt(1));
@@ -212,13 +206,11 @@ public class MediaRepositoryImpl implements SearchableRepository<Media, Integer>
         try (Connection conn = dbConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            // Set common parameters
             ps.setString(1, media.getTitle());
             ps.setString(2, media.getArtist());
             ps.setInt(3, media.getDuration());
             ps.setInt(4, media.getReleaseYear());
 
-            // Set type-specific parameters
             if (media instanceof Song) {
                 Song song = (Song) media;
                 ps.setString(5, song.getAlbum());
