@@ -6,7 +6,7 @@ public abstract class Media implements Validatable {
     private int id;
     private String title;
     private String artist;
-    private int duration; // in seconds
+    private int duration; 
     private int releaseYear;
 
     public Media(int id, String title, String artist, int duration, int releaseYear) {
