@@ -1,27 +1,30 @@
 package com.musiclibrary.utils;
 
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
 
 public class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/music_library";
-    private static final String USER = "music_user";
-    private static final String PASSWORD = "password123";
+    private static final String URL = "jdbc:sqlite:music_library.db";
 
     private DatabaseConnection() {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName("org.sqlite.JDBC");
 
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println(" PostgreSQL Database connected!");
+            connection = DriverManager.getConnection(URL);
+            System.out.println("✓ SQLite Database connected! File: music_library.db");
 
             initializeDatabase();
         } catch (ClassNotFoundException e) {
-            System.err.println("PostgreSQL JDBC Driver not found: " + e.getMessage());
+            System.err.println("SQLite Driver Error: " + e.getMessage());
         } catch (SQLException e) {
-            System.err.println("Database connection failed: " + e.getMessage());
+            System.err.println("SQLite Error: " + e.getMessage());
         }
     }
 
