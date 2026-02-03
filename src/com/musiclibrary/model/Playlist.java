@@ -7,7 +7,7 @@ public class Playlist {
     private int id;
     private String name;
     private String description;
-    private List<PlaylistItem> items; // КОМПОЗИЦИЯ!
+    private List<PlaylistItem> items;
 
     public Playlist(int id, String name, String description) {
         this.id = id;
