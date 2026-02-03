@@ -9,18 +9,15 @@ public class ReflectionUtils {
         System.out.println("\n=== CLASS INSPECTION: " + clazz.getSimpleName() + " ===");
         System.out.println("Full Name: " + clazz.getName());
 
-        // Superclass
         Class<?> superclass = clazz.getSuperclass();
         if (superclass != null) {
             System.out.println("Superclass: " + superclass.getSimpleName());
         }
 
-        // Interfaces
         System.out.println("\nImplemented Interfaces:");
         Arrays.stream(clazz.getInterfaces())
                 .forEach(i -> System.out.println("  - " + i.getSimpleName()));
 
-        // Fields
         System.out.println("\nFields:");
         Field[] fields = clazz.getDeclaredFields();
         Arrays.stream(fields)
